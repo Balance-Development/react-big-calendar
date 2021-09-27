@@ -14,6 +14,7 @@ class WeekWrapper extends React.Component {
     accessors: PropTypes.object.isRequired,
     getters: PropTypes.object.isRequired,
     components: PropTypes.object.isRequired,
+    getRootNode: PropTypes.func.isRequired,
     resourceId: PropTypes.any,
     rtl: PropTypes.bool,
     localizer: PropTypes.any,
@@ -150,7 +151,10 @@ class WeekWrapper extends React.Component {
     let node = this.ref.current.closest('.rbc-month-row, .rbc-allday-cell')
     let container = node.closest('.rbc-month-view, .rbc-time-view')
 
-    let selector = (this._selector = new Selection(() => container))
+    const { getRootNode } = this.props
+    let selector = (this._selector = new Selection(() => container, {
+      getRootNode,
+    }))
 
     selector.on('beforeSelect', point => {
       const { isAllDay } = this.props

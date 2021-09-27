@@ -72,8 +72,10 @@ class BackgroundCells extends React.Component {
 
   _selectable() {
     let node = findDOMNode(this)
-    let selector = (this._selector = new Selection(this.props.container, {
-      longPressThreshold: this.props.longPressThreshold,
+    const { container, longPressThreshold, getRootNode } = this.props
+    let selector = (this._selector = new Selection(container, {
+      longPressThreshold,
+      getRootNode,
     }))
 
     let selectorClicksHandler = (point, actionType) => {
@@ -171,6 +173,7 @@ BackgroundCells.propTypes = {
 
   getters: PropTypes.object.isRequired,
   components: PropTypes.object.isRequired,
+  getRootNode: PropTypes.func.isRequired,
 
   container: PropTypes.func,
   dayPropGetter: PropTypes.func,

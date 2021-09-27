@@ -107,6 +107,7 @@ class MonthView extends React.Component {
       accessors,
       getters,
       showAllEvents,
+      getRootNode,
     } = this.props
 
     const { needLimitMeasure, rowLimit } = this.state
@@ -150,6 +151,7 @@ class MonthView extends React.Component {
         rtl={this.props.rtl}
         resizable={this.props.resizable}
         showAllEvents={showAllEvents}
+        getRootNode={getRootNode}
       />
     )
   }
@@ -354,6 +356,7 @@ MonthView.propTypes = {
   components: PropTypes.object.isRequired,
   getters: PropTypes.object.isRequired,
   localizer: PropTypes.object.isRequired,
+  getRootNode: PropTypes.func.isRequired,
 
   selected: PropTypes.object,
   selectable: PropTypes.oneOf([true, false, 'ignoreEvents']),

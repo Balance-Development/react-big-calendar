@@ -71,6 +71,7 @@ class TimeGridHeader extends React.Component {
       accessors,
       components,
       resizable,
+      getRootNode,
     } = this.props
 
     const resourceId = accessors.resourceId(resource)
@@ -100,6 +101,7 @@ class TimeGridHeader extends React.Component {
         onSelectSlot={this.props.onSelectSlot}
         longPressThreshold={this.props.longPressThreshold}
         resizable={resizable}
+        getRootNode={getRootNode}
       />
     )
   }
@@ -119,11 +121,12 @@ class TimeGridHeader extends React.Component {
       scrollRef,
       localizer,
       isOverflowing,
+      resizable,
+      getRootNode,
       components: {
         timeGutterHeader: TimeGutterHeader,
         resourceHeader: ResourceHeaderComponent = ResourceHeader,
       },
-      resizable,
     } = this.props
 
     let style = {}
@@ -187,6 +190,7 @@ class TimeGridHeader extends React.Component {
               onSelectSlot={this.props.onSelectSlot}
               longPressThreshold={this.props.longPressThreshold}
               resizable={resizable}
+              getRootNode={getRootNode}
             />
           </div>
         ))}
@@ -210,6 +214,7 @@ TimeGridHeader.propTypes = {
   accessors: PropTypes.object.isRequired,
   components: PropTypes.object.isRequired,
   getters: PropTypes.object.isRequired,
+  getRootNode: PropTypes.func.isRequired,
 
   selected: PropTypes.object,
   selectable: PropTypes.oneOf([true, false, 'ignoreEvents']),
