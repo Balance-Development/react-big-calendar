@@ -70,6 +70,13 @@ function getTotalMin(start, end) {
   return diff(start, end, 'minutes') + getDstOffset(start, end)
 }
 
+function setMinutesToZero(start) {
+  const newStart = new Date(start)
+  newStart.setMinutes(0)
+
+  return newStart
+}
+
 function getMinutesFromMidnight(start) {
   const daystart = startOf(start, 'day')
   return diff(daystart, start, 'minutes') + getDstOffset(daystart, start)
@@ -182,6 +189,7 @@ export class DateLocalizer {
     this.isSameDate = spec.isSameDate || isSameDate
     this.startAndEndAreDateOnly =
       spec.startAndEndAreDateOnly || startAndEndAreDateOnly
+    this.setMinutesToZero = spec.setMinutesToZero || setMinutesToZero
     this.segmentOffset = spec.browserTZOffset ? spec.browserTZOffset() : 0
   }
 }

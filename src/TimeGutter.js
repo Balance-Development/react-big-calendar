@@ -24,10 +24,26 @@ export default class TimeGutter extends Component {
   }
 
   renderSlot = (value, idx) => {
-    if (idx !== 0) return null
-    const { localizer, getNow } = this.props
+    const { localizer, getNow, min, max } = this.props
+
+    // Don't show first time in group if it's less than min time
+    if (idx === 0 && value.getTime() < min.getTime()) return null
 
     const isNow = this.slotMetrics.dateIsInGroup(getNow(), idx)
+
+    if (idx !== 0) {
+      // Show either min or max times for non hour-long period
+      if ([min.getTime(), max.getTime()].includes(value.getTime())) {
+        return (
+          <span className={clsx('rbc-label', isNow && 'rbc-now')}>
+            {localizer.format(value, 'nonFullHourTimeGutterFormat')}
+          </span>
+        )
+      } else {
+        return null
+      }
+    }
+
     return (
       <span className={clsx('rbc-label', isNow && 'rbc-now')}>
         {localizer.format(value, 'timeGutterFormat')}

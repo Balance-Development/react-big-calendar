@@ -3,14 +3,11 @@ const getKey = ({ min, max, step, slots, localizer }) =>
   `${+localizer.startOf(max, 'minutes')}` +
   `${step}-${slots}`
 
-export function getSlotMetrics({
-  min: start,
-  max: end,
-  step,
-  timeslots,
-  localizer,
-}) {
-  const key = getKey({ start, end, step, timeslots, localizer })
+export function getSlotMetrics({ min, max, step, timeslots, localizer }) {
+  const key = getKey({ min, max, step, timeslots, localizer })
+
+  const start = localizer.setMinutesToZero(min)
+  const end = max
 
   // DST differences are handled inside the localizer
   const totalMin = 1 + localizer.getTotalMin(start, end)

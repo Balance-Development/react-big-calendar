@@ -29,6 +29,7 @@ export const formats = {
   eventTimeRangeEndFormat: timeRangeEndFormat,
 
   timeGutterFormat: 'LT',
+  nonFullHourTimeGutterFormat: 'LT',
 
   monthHeaderFormat: 'MMMM YYYY',
   dayHeaderFormat: 'dddd MMM DD',
