@@ -8,7 +8,7 @@ import * as dates from '../../src/utils/dates'
 const localizer = momentLocalizer(moment)
 //const localizer = luxonLocalizer(DateTime)
 
-describe('getSlotMetrics', () => {
+describe('closestSlotToPosition', () => {
   const min = dates.startOf(new Date(2018, 0, 29, 0, 0, 0), 'day')
   const max = dates.endOf(new Date(2018, 0, 29, 59, 59, 59), 'day')
   const slotMetrics = getSlotMetrics({
@@ -18,7 +18,7 @@ describe('getSlotMetrics', () => {
     timeslots: 1,
     localizer,
   })
-  test('getSlotMetrics.closestSlotToPosition: always returns timeslot if valid percentage is given', () => {
+  test('always returns timeslot if valid percentage is given', () => {
     expect(slotMetrics.closestSlotToPosition(0)).toBeDefined()
     expect(slotMetrics.closestSlotToPosition(1)).toBeDefined()
     expect(slotMetrics.closestSlotToPosition(100)).toBeDefined()
@@ -27,7 +27,7 @@ describe('getSlotMetrics', () => {
     expect(slotMetrics.closestSlotToPosition('asd')).toBeUndefined()
   })
 
-  test('getSlotMetrics.closestSlotToPosition: returns last timeslot with correct time', () => {
+  test('returns last timeslot with correct time', () => {
     const secondLastSlot = slotMetrics.groups[slotMetrics.groups.length - 1][0]
     const shouldBeLast = slotMetrics.closestSlotToPosition(1)
     const diff = dates.diff(secondLastSlot, shouldBeLast, 'minutes')
