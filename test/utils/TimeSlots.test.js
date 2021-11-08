@@ -119,3 +119,198 @@ describe('getRange', () => {
     expect(range.height).toBeGreaterThan(0)
   })
 })
+
+describe('calculating groups and slots count', () => {
+  describe('returns total groups and slots between 6:00 and 20:00', () => {
+    const min = new Date(2021, 10, 5, 6, 0, 0)
+    const max = new Date(2021, 10, 5, 20, 0, 0)
+
+    test.each([
+      [12, 5, 14, 168],
+      [6, 10, 14, 84],
+      [4, 15, 14, 56],
+      [3, 20, 14, 42],
+      [2, 30, 14, 28],
+      [4, 20, 11, 44], // unusual non 1-hour long groups (80 minutes long)
+    ])(
+      'with %i slots by %i minutes',
+      (timeslots, step, expectedGroups, expectedSlots) => {
+        const slotMetrics = getSlotMetrics({
+          min,
+          max,
+          step,
+          timeslots,
+          localizer,
+        })
+
+        const groups = slotMetrics.groups
+        expect(groups.length).toEqual(expectedGroups)
+
+        const slots = groups.reduce((acc, slots) => {
+          return acc.concat(slots)
+        }, [])
+        expect(slots.length).toEqual(expectedSlots)
+      }
+    )
+  })
+
+  describe('returns total groups and slots between 7:30 and 20:00', () => {
+    const min = new Date(2021, 10, 5, 7, 30, 0)
+    const max = new Date(2021, 10, 5, 20, 0, 0)
+
+    test.each([
+      [12, 5, 13, 156],
+      [6, 10, 13, 78],
+      [4, 15, 13, 52],
+      [3, 20, 13, 39],
+      [2, 30, 13, 26],
+    ])(
+      'with %i slots by %i minutes',
+      (timeslots, step, expectedGroups, expectedSlots) => {
+        const slotMetrics = getSlotMetrics({
+          min,
+          max,
+          step,
+          timeslots,
+          localizer,
+        })
+
+        const groups = slotMetrics.groups
+        expect(groups.length).toEqual(expectedGroups)
+
+        const slots = groups.reduce((acc, slots) => {
+          return acc.concat(slots)
+        }, [])
+        expect(slots.length).toEqual(expectedSlots)
+      }
+    )
+  })
+
+  describe('returns total groups and slots between 7:40 and 20:00', () => {
+    const min = new Date(2021, 10, 5, 7, 40, 0)
+    const max = new Date(2021, 10, 5, 20, 0, 0)
+
+    test.each([
+      [12, 5, 13, 156],
+      [6, 10, 13, 78],
+      [4, 15, 13, 52],
+      [3, 20, 13, 39],
+      [2, 30, 13, 26],
+    ])(
+      'with %i slots by %i minutes',
+      (timeslots, step, expectedGroups, expectedSlots) => {
+        const slotMetrics = getSlotMetrics({
+          min,
+          max,
+          step,
+          timeslots,
+          localizer,
+        })
+
+        const groups = slotMetrics.groups
+        expect(groups.length).toEqual(expectedGroups)
+
+        const slots = groups.reduce((acc, slots) => {
+          return acc.concat(slots)
+        }, [])
+        expect(slots.length).toEqual(expectedSlots)
+      }
+    )
+  })
+
+  describe('returns total groups and slots between 7:50 and 20:00', () => {
+    const min = new Date(2021, 10, 5, 7, 50, 0)
+    const max = new Date(2021, 10, 5, 20, 0, 0)
+
+    test.each([
+      [12, 5, 13, 156],
+      [6, 10, 13, 78],
+      [4, 15, 13, 52],
+      [3, 20, 13, 39],
+      [2, 30, 13, 26],
+    ])(
+      'with %i slots by %i minutes',
+      (timeslots, step, expectedGroups, expectedSlots) => {
+        const slotMetrics = getSlotMetrics({
+          min,
+          max,
+          step,
+          timeslots,
+          localizer,
+        })
+
+        const groups = slotMetrics.groups
+        expect(groups.length).toEqual(expectedGroups)
+
+        const slots = groups.reduce((acc, slots) => {
+          return acc.concat(slots)
+        }, [])
+        expect(slots.length).toEqual(expectedSlots)
+      }
+    )
+  })
+
+  describe('returns total groups and slots between 7:00 and 20:30', () => {
+    const min = new Date(2021, 10, 5, 7, 0, 0)
+    const max = new Date(2021, 10, 5, 20, 30, 0)
+
+    test.each([
+      [12, 5, 14, 168],
+      [6, 10, 14, 84],
+      [4, 15, 14, 56],
+      [3, 20, 14, 42],
+      [2, 30, 14, 28],
+    ])(
+      'with %i slots by %i minutes',
+      (timeslots, step, expectedGroups, expectedSlots) => {
+        const slotMetrics = getSlotMetrics({
+          min,
+          max,
+          step,
+          timeslots,
+          localizer,
+        })
+
+        const groups = slotMetrics.groups
+        expect(groups.length).toEqual(expectedGroups)
+
+        const slots = groups.reduce((acc, slots) => {
+          return acc.concat(slots)
+        }, [])
+        expect(slots.length).toEqual(expectedSlots)
+      }
+    )
+  })
+
+  describe('returns total groups and slots between 8:30 and 17:30', () => {
+    const min = new Date(2021, 10, 5, 8, 30, 0)
+    const max = new Date(2021, 10, 5, 17, 30, 0)
+
+    test.each([
+      [12, 5, 10, 120],
+      [6, 10, 10, 60],
+      [4, 15, 10, 40],
+      [3, 20, 10, 30],
+      [2, 30, 10, 20],
+    ])(
+      'with %i slots by %i minutes',
+      (timeslots, step, expectedGroups, expectedSlots) => {
+        const slotMetrics = getSlotMetrics({
+          min,
+          max,
+          step,
+          timeslots,
+          localizer,
+        })
+
+        const groups = slotMetrics.groups
+        expect(groups.length).toEqual(expectedGroups)
+
+        const slots = groups.reduce((acc, slots) => {
+          return acc.concat(slots)
+        }, [])
+        expect(slots.length).toEqual(expectedSlots)
+      }
+    )
+  })
+})
