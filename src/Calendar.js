@@ -607,7 +607,10 @@ class Calendar extends React.Component {
     /**
      * Determines how far down the scroll pane is initially scrolled down.
      */
-    scrollToTime: PropTypes.instanceOf(Date),
+    scrollToTime: PropTypes.oneOfType([
+      PropTypes.oneOf([undefined, 'currentTime']),
+      PropTypes.instanceOf(Date),
+    ]),
 
     /**
      * Determines whether the scroll pane is automatically scrolled down or not.
