@@ -5,6 +5,7 @@ BRANCHES=(
 	fix-resize-feature-for-react-17
 	use-event-wrapper-while-dragging
 	feature/add-default-behaviour-to-scroll-to-time
+	fix-wrong-gutter-times-on-dst-weeks
 )
 
 CURRENT_DATE=`date +%Y-%m-%dT%H-%M`
