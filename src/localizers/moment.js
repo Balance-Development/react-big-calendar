@@ -79,11 +79,6 @@ export default function(moment) {
     return startOffset - endOffset
   }
 
-  function getDayStartDstOffset(start) {
-    const dayStart = moment(start).startOf('day')
-    return getDstOffset(dayStart, start)
-  }
-
   /*** BEGIN localized date arithmetic methods with moment ***/
   function defineComparators(a, b, unit) {
     const datePart = fixUnit(unit)
@@ -273,7 +268,7 @@ export default function(moment) {
   function getMinutesFromMidnight(start) {
     const dayStart = moment(start).startOf('day')
     const day = moment(start)
-    return day.diff(dayStart, 'minutes') + getDayStartDstOffset(start)
+    return day.diff(dayStart, 'minutes')
   }
 
   // These two are used by DateSlotMetrics
