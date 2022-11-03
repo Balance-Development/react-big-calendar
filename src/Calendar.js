@@ -274,6 +274,16 @@ class Calendar extends React.Component {
     getNow: PropTypes.func,
 
     /**
+     * Get react root node
+     *
+     * Since React 17 the document object can't be used anymore as a target for
+     * event handler.
+     *
+     * @type {func}
+     */
+    getRootNode: PropTypes.func.isRequired,
+
+    /**
      * Callback fired when the `date` value changes.
      *
      * @controllable date

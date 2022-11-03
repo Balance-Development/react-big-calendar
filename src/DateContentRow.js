@@ -111,6 +111,7 @@ class DateContentRow extends React.Component {
       accessors,
       getters,
       components,
+      getRootNode,
 
       getNow,
       renderHeader,
@@ -147,8 +148,9 @@ class DateContentRow extends React.Component {
       onDoubleClick,
       onKeyPress,
       resourceId,
-      slotMetrics: metrics,
       resizable,
+      getRootNode,
+      slotMetrics: metrics,
     }
 
     return (
@@ -168,6 +170,7 @@ class DateContentRow extends React.Component {
           components={components}
           longPressThreshold={longPressThreshold}
           resourceId={resourceId}
+          getRootNode={getRootNode}
         />
 
         <div
@@ -235,6 +238,7 @@ DateContentRow.propTypes = {
   components: PropTypes.object.isRequired,
   getters: PropTypes.object.isRequired,
   localizer: PropTypes.object.isRequired,
+  getRootNode: PropTypes.func.isRequired,
 
   minRows: PropTypes.number.isRequired,
   maxRows: PropTypes.number.isRequired,

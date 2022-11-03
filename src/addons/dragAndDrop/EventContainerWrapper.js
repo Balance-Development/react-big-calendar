@@ -17,6 +17,7 @@ class EventContainerWrapper extends React.Component {
     getters: PropTypes.object.isRequired,
     localizer: PropTypes.object.isRequired,
     slotMetrics: PropTypes.object.isRequired,
+    getRootNode: PropTypes.func.isRequired,
     resource: PropTypes.any,
   }
 
@@ -108,8 +109,10 @@ class EventContainerWrapper extends React.Component {
     let wrapper = this.ref.current
     let node = wrapper.children[0]
     let isBeingDragged = false
-    let selector = (this._selector = new Selection(() =>
-      wrapper.closest('.rbc-time-view')
+    const { getRootNode } = this.props
+    let selector = (this._selector = new Selection(
+      () => wrapper.closest('.rbc-time-view'),
+      { getRootNode }
     ))
 
     selector.on('beforeSelect', point => {

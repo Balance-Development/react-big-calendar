@@ -113,6 +113,7 @@ class DayColumn extends React.Component {
       resource,
       accessors,
       localizer,
+      getRootNode,
       getters: { dayProp, ...getters },
       components: { eventContainerWrapper: EventContainer, ...components },
     } = this.props
@@ -156,6 +157,7 @@ class DayColumn extends React.Component {
           getters={getters}
           components={components}
           slotMetrics={slotMetrics}
+          getRootNode={getRootNode}
         >
           <div className={clsx('rbc-events-container', rtl && 'rtl')}>
             {this.renderEvents({
@@ -249,9 +251,10 @@ class DayColumn extends React.Component {
 
   _selectable = () => {
     let node = findDOMNode(this)
-    const { longPressThreshold, localizer } = this.props
+    const { longPressThreshold, localizer, getRootNode } = this.props
     let selector = (this._selector = new Selection(() => findDOMNode(this), {
-      longPressThreshold: longPressThreshold,
+      longPressThreshold,
+      getRootNode,
     }))
 
     let maybeSelect = box => {
@@ -405,6 +408,7 @@ DayColumn.propTypes = {
   components: PropTypes.object.isRequired,
   getters: PropTypes.object.isRequired,
   localizer: PropTypes.object.isRequired,
+  getRootNode: PropTypes.func.isRequired,
 
   showMultiDayTimes: PropTypes.bool,
   culture: PropTypes.string,
