@@ -47,7 +47,10 @@ WorkWeek.propTypes = {
   localizer: PropTypes.any,
   min: PropTypes.instanceOf(Date),
   max: PropTypes.instanceOf(Date),
-  scrollToTime: PropTypes.instanceOf(Date),
+  scrollToTime: PropTypes.oneOfType([
+    PropTypes.oneOf([undefined, 'currentTime']),
+    PropTypes.instanceOf(Date),
+  ]),
   enableAutoScroll: PropTypes.bool,
 }
 

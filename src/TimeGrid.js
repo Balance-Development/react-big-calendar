@@ -77,7 +77,8 @@ export default class TimeGrid extends Component {
     // When paginating, reset scroll
     if (
       localizer.neq(nextProps.range[0], range[0], 'minutes') ||
-      localizer.neq(nextProps.scrollToTime, scrollToTime, 'minutes')
+      (scrollToTime instanceof Date &&
+        localizer.neq(nextProps.scrollToTime, scrollToTime, 'minutes'))
     ) {
       this.calculateScroll(nextProps)
     }
@@ -315,9 +316,19 @@ export default class TimeGrid extends Component {
   }
 
   calculateScroll(props = this.props) {
-    const { min, max, scrollToTime, localizer } = props
+    const { min, max, scrollToTime, getNow, localizer } = props
+    if (!scrollToTime) {
+      this._scrollRatio = 0
+      return
+    }
 
-    const diffMillis = scrollToTime - localizer.startOf(scrollToTime, 'day')
+    const time = scrollToTime === 'currentTime' ? getNow() : scrollToTime
+    if (!localizer.inRange(time, min, max, 'minutes')) {
+      this._scrollRatio = 0
+      return
+    }
+
+    const diffMillis = time - min
     const totalMillis = localizer.diff(min, max, 'milliseconds')
 
     this._scrollRatio = diffMillis / totalMillis
@@ -354,9 +365,12 @@ TimeGrid.propTypes = {
   max: PropTypes.instanceOf(Date).isRequired,
   getNow: PropTypes.func.isRequired,
 
-  scrollToTime: PropTypes.instanceOf(Date).isRequired,
-  enableAutoScroll: PropTypes.bool,
+  scrollToTime: PropTypes.oneOfType([
+    PropTypes.oneOf([undefined, 'currentTime']),
+    PropTypes.instanceOf(Date),
+  ]).isRequired,
   showMultiDayTimes: PropTypes.bool,
+  enableAutoScroll: PropTypes.bool,
 
   rtl: PropTypes.bool,
   resizable: PropTypes.bool,

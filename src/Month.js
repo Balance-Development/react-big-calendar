@@ -347,8 +347,12 @@ MonthView.propTypes = {
   step: PropTypes.number,
   getNow: PropTypes.func.isRequired,
 
-  scrollToTime: PropTypes.instanceOf(Date),
+  scrollToTime: PropTypes.oneOfType([
+    PropTypes.oneOf([undefined, 'currentTime']),
+    PropTypes.instanceOf(Date)
+  ]),
   enableAutoScroll: PropTypes.bool,
+
   rtl: PropTypes.bool,
   resizable: PropTypes.bool,
   width: PropTypes.number,
